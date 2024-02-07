@@ -38,3 +38,7 @@ message GetSandboxResponse {
     string error = 7;
 }
 
+service Sandbox {    
+    rpc CreateSandbox(CreateSandboxRequest) returns (CreateSandboxResponse);
+    rpc GetSandbox(GetSandboxRequest) returns (GetSandboxResponse);
+}

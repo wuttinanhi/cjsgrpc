@@ -2,3 +2,98 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import sandbox_pb2 as sandbox__pb2
+
+
+class SandboxStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.CreateSandbox = channel.unary_unary(
+                '/sandbox.Sandbox/CreateSandbox',
+                request_serializer=sandbox__pb2.CreateSandboxRequest.SerializeToString,
+                response_deserializer=sandbox__pb2.CreateSandboxResponse.FromString,
+                )
+        self.GetSandbox = channel.unary_unary(
+                '/sandbox.Sandbox/GetSandbox',
+                request_serializer=sandbox__pb2.GetSandboxRequest.SerializeToString,
+                response_deserializer=sandbox__pb2.GetSandboxResponse.FromString,
+                )
+
+
+class SandboxServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def CreateSandbox(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSandbox(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_SandboxServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'CreateSandbox': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSandbox,
+                    request_deserializer=sandbox__pb2.CreateSandboxRequest.FromString,
+                    response_serializer=sandbox__pb2.CreateSandboxResponse.SerializeToString,
+            ),
+            'GetSandbox': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSandbox,
+                    request_deserializer=sandbox__pb2.GetSandboxRequest.FromString,
+                    response_serializer=sandbox__pb2.GetSandboxResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'sandbox.Sandbox', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Sandbox(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def CreateSandbox(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sandbox.Sandbox/CreateSandbox',
+            sandbox__pb2.CreateSandboxRequest.SerializeToString,
+            sandbox__pb2.CreateSandboxResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSandbox(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sandbox.Sandbox/GetSandbox',
+            sandbox__pb2.GetSandboxRequest.SerializeToString,
+            sandbox__pb2.GetSandboxResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
